@@ -28,8 +28,25 @@ class PickCubeEnv(BaseEnv):
 
     @property
     def _default_sensor_configs(self):
-        pose = sapien_utils.look_at(eye=[0.3, 0, 0.6], target=[-0.1, 0, 0.1])
-        return [CameraConfig("base_camera", pose, 128, 128, np.pi / 2, 0.01, 100)]
+        poseUp = sapien_utils.look_at(eye=[0, 0, 1.0], target=[-0.1, 0, 0.1])
+        poseFront = sapien_utils.look_at(eye=[-0.4, 0, 0.4], target=[-0.1, 0, 0.1])
+        poseBack = sapien_utils.look_at(eye=[0.4, 0, 0.4], target=[-0.1, 0, 0.1])
+        poseLeft = sapien_utils.look_at(eye=[0, -0.4, 0.4], target=[-0.1, 0, 0.1])
+        poseRight = sapien_utils.look_at(eye=[0, 0.4, 0.4], target=[-0.1, 0, 0.1])
+        poseLeftBack = sapien_utils.look_at(eye=[-0.4, -0.4, 0.4], target=[-0.1, 0, 0.1])
+        poseRightBack = sapien_utils.look_at(eye=[-0.4, 0.4, 0.4], target=[-0.1, 0, 0.1])
+        poseLeftFront = sapien_utils.look_at(eye=[0.2, 0.2, 0.4], target=[-0.1, 0, 0.1])
+        poseRightFront = sapien_utils.look_at(eye=[0.2, -0.2, 0.4], target=[-0.1, 0, 0.1])
+        return [
+            CameraConfig("base_camera", poseFront, 128, 128, np.pi / 2, 0.01, 100), 
+            CameraConfig("front_camera", poseBack, 128, 128, np.pi / 2, 0.01, 100), 
+            CameraConfig("left_camera", poseLeft, 128, 128, np.pi / 2, 0.01, 100), 
+            CameraConfig("right_camera", poseRight, 128, 128, np.pi / 2, 0.01, 100), 
+            CameraConfig("up_camera", poseUp, 128, 128, np.pi / 2, 0.01, 100), 
+                CameraConfig("left_back_camera", poseLeftBack, 128, 128, np.pi / 2, 0.01, 100),
+                CameraConfig("right_back_camera", poseRightBack, 128, 128, np.pi / 2, 0.01, 100),
+                CameraConfig("left_front_camera", poseLeftFront, 128, 128, np.pi / 2, 0.01, 100),
+                CameraConfig("right_front_camera", poseRightFront, 128, 128, np.pi / 2, 0.01, 100)]
 
     @property
     def _default_human_render_camera_configs(self):
